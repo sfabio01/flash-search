@@ -1,0 +1,13 @@
+{
+    "name": "Flash Search",
+    "description": "Search for websites blazingly fast",
+    "version": "0.1",
+    "manifest_version": 3,
+    "chrome_url_overrides": {
+        "newtab": "page.html"
+    },
+    "permissions": [
+        "storage",
+        "search"
+    ]
+}
