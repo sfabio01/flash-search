@@ -1,8 +1,9 @@
 {
     "name": "Flash Search",
-    "description": "Search for websites blazingly fast",
+    "description": "Visiting your favorite websites has never been so fast",
     "version": "0.1",
     "manifest_version": 3,
+    "options_page": "options.html",
     "chrome_url_overrides": {
         "newtab": "page.html"
     },

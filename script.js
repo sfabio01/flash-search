@@ -46,20 +46,21 @@ document.getElementById("input-search").addEventListener("keypress", function(e)
 });
 
 document.getElementById("add-button").addEventListener("click", async function(e) {
-    var url = prompt("Add a new URL to the list");
-    if (url == null || url == "") return;
-    var result = await chrome.storage.sync.get('list');
-    var list = []
-    if (result.list != null) {
-        list = result.list;
-    }
-    list.push(url);
-    await chrome.storage.sync.set({list: list});
-    
-    // update local variables
-    suggestionList.push(url);
-    var option = document.createElement("option");
-    option.value = url;
-    option.innerHTML = url;
-    datalist.appendChild(option);
+    chrome.runtime.openOptionsPage();
+    // var url = prompt("Add a new URL to the list");
+    // if (url == null || url == "") return;
+    // var result = await chrome.storage.sync.get('list');
+    // var list = []
+    // if (result.list != null) {
+    //     list = result.list;
+    // }
+    // list.push(url);
+    // await chrome.storage.sync.set({list: list});
+
+    // // update local variables
+    // suggestionList.push(url);
+    // var option = document.createElement("option");
+    // option.value = url;
+    // option.innerHTML = url;
+    // datalist.appendChild(option);
 });
