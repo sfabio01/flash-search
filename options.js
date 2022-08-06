@@ -9,7 +9,11 @@ chrome.storage.sync.get(null, (data) => {
 chrome.storage.onChanged.addListener((changes, area) => {
     if (area === 'sync') {
         for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-            storageData[key] = newValue;
+            if (newValue === undefined) {
+                delete storageData[key];
+            } else {
+                storageData[key] = newValue;
+            }
         }
         updateView();
     }
@@ -52,7 +56,13 @@ var updateView = () => {
         div1.appendChild(p2);
 
         var div2 = document.createElement("div");
-        div2.innerHTML = `<button class="remove-btn" onclick="removeShortcut(${name})"><span class="material-symbols-rounded">delete</span></button>`
+        var removeBtn = document.createElement("button");
+        removeBtn.className = "remove-btn";
+        removeBtn.innerHTML = '<span class="material-symbols-rounded">delete</span>';
+        removeBtn.addEventListener("click", function (e) {
+            removeShortcut(name);
+        });
+        div2.appendChild(removeBtn);
 
         listItem.appendChild(div1);
         listItem.appendChild(div2);
