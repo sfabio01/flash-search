@@ -1,66 +1,59 @@
-var suggestionList = [];
+var suggestions = {};
 var datalist = document.getElementById("suggestions-list");
 
-chrome.storage.sync.get('list', function(result) {
-    if (result.list != null) {
-        suggestionList = result.list;
+chrome.storage.sync.get(null, function (result) {
+    if (result != null) {
+        suggestions = result;
     }
-    for (var item of suggestionList) {
+    for (var item of Object.keys(suggestions)) {
         var option = document.createElement("option");
-        option.value = item;
+        option.value = suggestions[item];
         option.innerHTML = item;
         datalist.appendChild(option);
     }
 });
 
+document.getElementById("input-search").addEventListener("change", function (e) {
+    chrome.tabs.create({
+        url: this.value,
+    });
+    this.value = "";
+})
+
 document.getElementById("input-search").addEventListener("input", function (event) {
     var input = this.value;
-    var suggestions = [];
+    var filtered = [];
     
-    for (var item of suggestionList) {
-        if (item.includes(input)) {
-            suggestions.push(item);
+    for (var item of Object.keys(suggestions)) {
+        if (item.toLowerCase().includes(input)) {
+            filtered.push(item);
         }
     }
-    console.log(suggestions);
-    if (suggestions.length == 1 && input != "") {
-        var url = suggestions[0];
-        if (!url.startsWith("https://")) {
-            url = "https://" + url;
-        }
+    if (filtered.length == 1 && input != "") {
+        var url = suggestions[filtered[0]];
         chrome.tabs.create({
             url: url,
         });
         document.getElementById("input-search").value = "";
     }
+    if (filtered.length == 0 && input.trim() != "") {
+        document.getElementById("hint-message").hidden = false;
+    }
 });
 
 document.getElementById("input-search").addEventListener("keypress", function(e) {
     if (e.key == "Enter") {
-        chrome.search.query({
-            text: this.value,
-        });
-        this.value = "";
+        if (this.value.trim() != "") {
+            chrome.search.query({
+                text: this.value,
+            });
+            this.value = "";
+        }
     }
     
 });
 
-document.getElementById("add-button").addEventListener("click", async function(e) {
-    chrome.runtime.openOptionsPage();
-    // var url = prompt("Add a new URL to the list");
-    // if (url == null || url == "") return;
-    // var result = await chrome.storage.sync.get('list');
-    // var list = []
-    // if (result.list != null) {
-    //     list = result.list;
-    // }
-    // list.push(url);
-    // await chrome.storage.sync.set({list: list});
 
-    // // update local variables
-    // suggestionList.push(url);
-    // var option = document.createElement("option");
-    // option.value = url;
-    // option.innerHTML = url;
-    // datalist.appendChild(option);
+document.getElementById("settings-button").addEventListener("click", async function (e) {
+    chrome.runtime.openOptionsPage();
 });
