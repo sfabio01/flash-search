@@ -5,10 +5,19 @@
     "manifest_version": 3,
     "options_page": "options.html",
     "chrome_url_overrides": {
-        "newtab": "page.html"
+        "newtab": "newtab.html"
     },
     "permissions": [
         "storage",
-        "search"
-    ]
+        "search",
+        "tabs",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
 }
