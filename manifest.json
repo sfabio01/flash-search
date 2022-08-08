@@ -3,9 +3,9 @@
     "description": "Visiting your favorite websites has never been so fast",
     "version": "0.1",
     "manifest_version": 3,
-    "options_page": "options.html",
+    "options_page": "views/options/options.html",
     "chrome_url_overrides": {
-        "newtab": "newtab.html"
+        "newtab": "views/newtab/newtab.html"
     },
     "permissions": [
         "storage",
@@ -18,6 +18,6 @@
         "https://*/*"
     ],
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "views/popup/popup.html"
     }
 }
