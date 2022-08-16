@@ -25,7 +25,7 @@ document.getElementById("input-search").addEventListener("input", function (even
     var filtered = [];
     
     for (var item of Object.keys(suggestions)) {
-        if (item.toLowerCase().includes(input)) {
+        if (item.toLowerCase().includes(input.toLowerCase())) {
             filtered.push(item);
         }
     }
