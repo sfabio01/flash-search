@@ -1,7 +1,7 @@
 {
     "name": "EasyTab",
     "description": "Surfing the web has never been so fast",
-    "version": "0.1",
+    "version": "0.2",
     "manifest_version": 3,
     "options_page": "views/options/options.html",
     "chrome_url_overrides": {
