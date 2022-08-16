@@ -1,6 +1,6 @@
 {
     "name": "shortcut",
-    "description": "Visiting websites has never been so fast",
+    "description": "Surfing the web has never been so fast",
     "version": "0.1",
     "manifest_version": 3,
     "options_page": "views/options/options.html",
