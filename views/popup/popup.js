@@ -2,6 +2,7 @@ async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
     let [tab] = await chrome.tabs.query(queryOptions);
     document.getElementById("input-url").value = tab.url;
+    document.getElementById("input-name").value = tab.title;
     let res = await chrome.storage.sync.get(null);
     for (let [key, value] of Object.entries(res)) {
         if (value == tab.url) {
